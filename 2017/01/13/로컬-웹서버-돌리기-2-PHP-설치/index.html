@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#682984">
+<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/icon-16x16.png">
+  <link rel="mask-icon" href="/images/icons/icon-pinned-tab.svg" color="#682984">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="google-site-verification" content="EFs9XZuMFGzvOpvRVHI_2bKZs1BmAMxPGmoFxuMu4-o">
+  <meta name="msvalidate.01" content="65AD1E28C0D057CEB3C68FBC0293E55B">
+  <meta name="yandex-verification" content="6672f93d837354fb">
+  <meta name="baidu-site-verification" content="yZEdU1ABcR">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"gracefullight.dev","root":"/","images":"/images","scheme":"Mist","version":"8.2.2","exturl":true,"sidebar":{"position":"right","display":"hide","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="1. Apache 설치에서 이어집니다.  PHP 다운로드 여기서 Apache 의 VC 버전에 맞는 Thread Safe 타입의 PHP 를 다운받으면 된다.  압축을 풀고 Apache 와 같은 폴더에 php7 로 변경해 저장한다. (D:\php7) 폴더 안의 php.ini-development를 php.ini로 변경한다.  모듈 활성화 사용할 모듈의 세미콜론">
+<meta property="og:type" content="article">
+<meta property="og:title" content="로컬 웹서버 돌리기 - 2. PHP 설치">
+<meta property="og:url" content="https://gracefullight.dev/2017/01/13/%EB%A1%9C%EC%BB%AC-%EC%9B%B9%EC%84%9C%EB%B2%84-%EB%8F%8C%EB%A6%AC%EA%B8%B0-2-PHP-%EC%84%A4%EC%B9%98/index.html">
+<meta property="og:site_name" content="Gracefullight">
+<meta property="og:description" content="1. Apache 설치에서 이어집니다.  PHP 다운로드 여기서 Apache 의 VC 버전에 맞는 Thread Safe 타입의 PHP 를 다운받으면 된다.  압축을 풀고 Apache 와 같은 폴더에 php7 로 변경해 저장한다. (D:\php7) 폴더 안의 php.ini-development를 php.ini로 변경한다.  모듈 활성화 사용할 모듈의 세미콜론">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://i.imgur.com/4BY9Y7E.jpg">
+<meta property="og:image" content="https://i.imgur.com/lOKahxa.jpg">
+<meta property="og:image" content="https://i.imgur.com/Q4uTX7J.jpg">
+<meta property="og:image" content="https://i.imgur.com/P1zVPs6.jpg">
+<meta property="og:image" content="https://i.imgur.com/BYKY6gP.jpg">
+<meta property="og:image" content="https://i.imgur.com/Fbq28aU.jpg">
+<meta property="og:image" content="https://i.imgur.com/bydLSlO.jpg">
+<meta property="article:published_time" content="2017-01-13T13:01:34.000Z">
+<meta property="article:modified_time" content="2021-03-07T08:17:22.716Z">
+<meta property="article:author" content="Gracefullight">
+<meta property="article:tag" content="server">
+<meta property="article:tag" content="php">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/4BY9Y7E.jpg">
+
+
+<link rel="canonical" href="https://gracefullight.dev/2017/01/13/%EB%A1%9C%EC%BB%AC-%EC%9B%B9%EC%84%9C%EB%B2%84-%EB%8F%8C%EB%A6%AC%EA%B8%B0-2-PHP-%EC%84%A4%EC%B9%98/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'ko'
+  };
+</script><link rel="preconnect" href="https://busuanzi.ibruce.info" />
+<link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<meta name="naver-site-verification" content="a73bfdbae0aa662dfbb30d15a87c1aec78aa9342"/>
+<meta name="facebook-domain-verification" content="uelupjqqsm5egzlhy1aev2rfxow5yt" />
+<script async src="https://cdn.jsdelivr.net/npm/pwacompat@latest/pwacompat.min.js"></script>
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Person",
+    "name": "Gracefullight",
+    "url": "https://gracefullight.dev",
+    "logo": "https://gracefullight.dev/images/icons/icon-144x144.png",
+    "image": "https://gracefullight.dev/images/profile_dog.png",
+    "email": "mailto:gracefullight.dev@gmail.com",
+    "jobTitle": "Full Stack Developer",
+    "nationality": "Korean",
+    "sameAs": [
+      "https://github.com/gracefullight",
+      "https://www.facebook.com/gracefullight.dev"
+    ]
+  }
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-3004788392777865",
+    enable_page_level_ads: true
+  });
+</script>
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '3488156724570735');
+  fbq('track', 'PageView');
+</script>
+
+<title>로컬 웹서버 돌리기 - 2. PHP 설치 | Gracefullight</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89261637-4"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-89261637-4');
+      }
+    </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/feed.xml" title="Gracefullight" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Gracefullight</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Web.dev</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>홈</a></li>
+        <li class="menu-item menu-item-profile"><a href="/profile/" rel="section"><i class="fa fa-user fa-fw"></i>프로필</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>태그</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>카테고리</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>검색
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#php-%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C"><span class="nav-number">1.</span> <span class="nav-text"> PHP 다운로드</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EB%AA%A8%EB%93%88-%ED%99%9C%EC%84%B1%ED%99%94"><span class="nav-number">2.</span> <span class="nav-text"> 모듈 활성화</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%EC%84%A4%EC%A0%95-%EB%B3%80%EA%B2%BD"><span class="nav-number">3.</span> <span class="nav-text"> 설정 변경</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%8B%9C%EA%B0%84%EB%8C%80-%EC%84%A4%EC%A0%95"><span class="nav-number">3.1.</span> <span class="nav-text"> 시간대 설정</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#short_open_tag-%EC%84%A4%EC%A0%95"><span class="nav-number">3.2.</span> <span class="nav-text"> short_open_tag 설정</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gracefullight"
+      src="/images/profile_dog.png">
+  <p class="site-author-name" itemprop="name">Gracefullight</p>
+  <div class="site-description" itemprop="description">풀스택 개발자를 꿈꾸며</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">153</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dyYWNlZnVsbGlnaHQ=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gracefullight"><i class="fab fa-github fa-fw"></i></span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmdyYWNlZnVsbGlnaHQuZGV2QGdtYWlsLmNvbQ==" title="E-Mail → mailto:gracefullight.dev@gmail.com"><i class="fa fa-envelope fa-fw"></i></span>
+      </span>
+  </div>
+
+
+<script src="https://ads-partners.coupang.com/g.js"></script>
+<script>
+	new PartnersCoupang.G({ id:115781 });
+</script>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://gracefullight.dev/2017/01/13/%EB%A1%9C%EC%BB%AC-%EC%9B%B9%EC%84%9C%EB%B2%84-%EB%8F%8C%EB%A6%AC%EA%B8%B0-2-PHP-%EC%84%A4%EC%B9%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/profile_dog.png">
+      <meta itemprop="name" content="Gracefullight">
+      <meta itemprop="description" content="풀스택 개발자를 꿈꾸며">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gracefullight">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          로컬 웹서버 돌리기 - 2. PHP 설치
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">작성일</span>
+
+      <time title="Post created: 2017-01-13 22:01:34" itemprop="dateCreated datePublished" datetime="2017-01-13T22:01:34+09:00">2017-01-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Updated at: 2021-03-07 17:17:22" itemprop="dateModified" datetime="2021-03-07T17:17:22+09:00">2021-03-07</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/server/" itemprop="url" rel="index"><span itemprop="name">server</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2017/01/13/%EB%A1%9C%EC%BB%AC-%EC%9B%B9%EC%84%9C%EB%B2%84-%EB%8F%8C%EB%A6%AC%EA%B8%B0-2-PHP-%EC%84%A4%EC%B9%98/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/01/13/로컬-웹서버-돌리기-2-PHP-설치/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a href="/2017/01/13/%EB%A1%9C%EC%BB%AC-%EC%9B%B9%EC%84%9C%EB%B2%84-%EB%8F%8C%EB%A6%AC%EA%B8%B0-1-Apache-%EC%84%A4%EC%B9%98/">1. Apache 설치</a>에서 이어집니다.</p>
+<h1 id="php-다운로드"><a class="markdownIt-Anchor" href="#php-다운로드"></a> PHP 다운로드</h1>
+<p><span class="exturl" data-url="aHR0cHM6Ly93aW5kb3dzLnBocC5uZXQvZG93bmxvYWQv">여기<i class="fa fa-external-link-alt"></i></span>서 Apache 의 VC 버전에 맞는 Thread Safe 타입의 PHP 를 다운받으면 된다.</p>
+<img data-src="https://i.imgur.com/4BY9Y7E.jpg" class="">
+<p>압축을 풀고 Apache 와 같은 폴더에 php7 로 변경해 저장한다. (D:\php7)<br />
+폴더 안의 <strong>php.ini-development</strong>를 <strong>php.ini</strong>로 변경한다.</p>
+<h1 id="모듈-활성화"><a class="markdownIt-Anchor" href="#모듈-활성화"></a> 모듈 활성화</h1>
+<p>사용할 모듈의 세미콜론을 지워주면 된다.</p>
+<img data-src="https://i.imgur.com/lOKahxa.jpg" class="">
+<p><strong>curl, mysqli, gettext, mbstring, openssl, pdomysql</strong>는 기본으로 지워주고, 나머진 나중에 지워도 된다.</p>
+<h1 id="설정-변경"><a class="markdownIt-Anchor" href="#설정-변경"></a> 설정 변경</h1>
+<p><strong>php.ini</strong> 파일의 설정을 변경한다.</p>
+<h2 id="시간대-설정"><a class="markdownIt-Anchor" href="#시간대-설정"></a> 시간대 설정</h2>
+<p>date.timezone 을 추가한다.</p>
+<img data-src="https://i.imgur.com/Q4uTX7J.jpg" class="">
+<h2 id="short_open_tag-설정"><a class="markdownIt-Anchor" href="#short_open_tag-설정"></a> short_open_tag 설정</h2>
+<?php 를 <? 로도 사용할 수 있게 해주는 short_open_tag 옵션을 켠다.
+<img data-src="https://i.imgur.com/P1zVPs6.jpg" class="">
+
+## 에러 리포팅 설정
+에러 발생시 서버에 오류가 노출되기에 에러 노출 단계를 낮춰주자.
+<img data-src="https://i.imgur.com/BYKY6gP.jpg" class="">
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">error_reporting</span> = E_ALL &amp; ~E_NOTICE &amp; ~E_DEPRECATED &amp; ~E_USER_DEPRECATED</span><br></pre></td></tr></table></figure>
+모든오류 & not runtime notice & not deprecated & not user deprecated 의 상태이면 오류를 출력한다.
+
+## 확장 모듈 경로 설정
+C:\\php에 php 설치를 하지 않았을 경우 확장 모듈 경로를 변경해줘야한다.
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">extension_dir</span> = <span class="string">&quot;D:\php7\ext&quot;</span></span><br></pre></td></tr></table></figure>
+
+# Apache에 PHP 연동
+**httpd.conf** 파일을 열고 아래 구문을 모두 추가한다.
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 인덱스 파일 설정</span></span><br><span class="line"><span class="attribute">DirectoryIndex</span> index.php index.html index.htm</span><br><span class="line"><span class="comment"># 모듈 연동 (php 설치 경로를 적는다)</span></span><br><span class="line"><span class="attribute"><span class="nomarkup">LoadModule</span></span> php<span class="number">7</span>_module <span class="string">&quot;D:/php7/php7apache2_4.dll&quot;</span></span><br><span class="line"><span class="comment"># 핸들러 및 타입 연동</span></span><br><span class="line"><span class="attribute">AddHandler</span> application/x-httpd-php .php</span><br><span class="line"><span class="attribute">AddType</span> application/x-httpd-php .php .html</span><br><span class="line"><span class="comment"># PHP INI 경로 설정</span></span><br><span class="line"><span class="attribute">PHPIniDir</span> <span class="string">&quot;D:/php7&quot;</span></span><br></pre></td></tr></table></figure>
+<img data-src="https://i.imgur.com/Fbq28aU.jpg" class="">
+
+# 연동 확인
+D:\Apache24\htdocs 경로의 index.html 파일을 index.php 로 변경 후 저장한다.
+<figure class="highlight php"><figcaption><span>index.php</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span></span><br><span class="line">    phpinfo();</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<img data-src="https://i.imgur.com/bydLSlO.jpg" class="">
+
+# 여담
+php5에서 php7로 오는 중 큰 변경점이 몇 가지 있다.
+1. 속도가 php5보다 2배 향상
+2. mysql 함수 사용 불가 (Mysqli로 대체)
+3. 기본값 연산자 사용 가능 (A ?? B ?? C 로 사용가능)
+
+👏👏👏 다음 장에서는 실제 프로젝트를 웹서버에 돌리기 위한 [Virtual Host 설정](/2017/01/13/로컬-웹서버-돌리기-3-Virtual-Host-설정/)을 해보겠습니다.
+```
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<script src="https://ads-partners.coupang.com/g.js"></script>
+<script>
+    new PartnersCoupang.G({id:115781});
+</script>
+<br>
+<div id="reward-container">
+  <a href="https://www.buymeacoffee.com/LOUB2kN" target="_blank">
+    <img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" style="height: auto !important;width: auto !important;" >
+  </a>
+</div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Gracefullight
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://gracefullight.dev/2017/01/13/%EB%A1%9C%EC%BB%AC-%EC%9B%B9%EC%84%9C%EB%B2%84-%EB%8F%8C%EB%A6%AC%EA%B8%B0-2-PHP-%EC%84%A4%EC%B9%98/" title="로컬 웹서버 돌리기 - 2. PHP 설치">https://gracefullight.dev/2017/01/13/로컬-웹서버-돌리기-2-PHP-설치/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LXNhLzQuMC9kZWVkLmtv"><i class="fab fa-fw fa-creative-commons"></i>BY-SA</span> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>Welcome to my other publishing channels</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/feed.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/server/" rel="tag"><i class="fa fa-tag"></i> server</a>
+              <a href="/tags/php/" rel="tag"><i class="fa fa-tag"></i> php</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/01/13/%EB%A1%9C%EC%BB%AC-%EC%9B%B9%EC%84%9C%EB%B2%84-%EB%8F%8C%EB%A6%AC%EA%B8%B0-1-Apache-%EC%84%A4%EC%B9%98/" rel="prev" title="로컬 웹서버 돌리기 - 1. Apache 설치">
+                  <i class="fa fa-chevron-left"></i> 로컬 웹서버 돌리기 - 1. Apache 설치
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/01/13/%EB%A1%9C%EC%BB%AC-%EC%9B%B9%EC%84%9C%EB%B2%84-%EB%8F%8C%EB%A6%AC%EA%B8%B0-3-Virtual-Host-%EC%84%A4%EC%A0%95/" rel="next" title="로컬 웹서버 돌리기 - 3. Virtual Host 설정">
+                  로컬 웹서버 돌리기 - 3. Virtual Host 설정 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gracefullight</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id    : 26238,
+      el    : 'wpac-rating',
+      color : '682984'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/quicklink@2/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink.listen({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://gracefullight.dev/2017/01/13/%EB%A1%9C%EC%BB%AC-%EC%9B%B9%EC%84%9C%EB%B2%84-%EB%8F%8C%EB%A6%AC%EA%B8%B0-2-PHP-%EC%84%A4%EC%B9%98/',(uri, el) => el.hasAttribute('noopener')]
+      });
+      });
+  </script>
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://gracefullight.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://gracefullight.dev/2017/01/13/%EB%A1%9C%EC%BB%AC-%EC%9B%B9%EC%84%9C%EB%B2%84-%EB%8F%8C%EB%A6%AC%EA%B8%B0-2-PHP-%EC%84%A4%EC%B9%98/";
+    this.page.identifier = "2017/01/13/로컬-웹서버-돌리기-2-PHP-설치/";
+    this.page.title = "로컬 웹서버 돌리기 - 2. PHP 설치";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://gracefullight.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+<script src="/a2hs.js"></script>
+<script>
+AddToHomeScreen({
+  color: "#682984",
+  htmlContent: `Install <strong>Blog</strong> on your iOS device: tap share and <strong>Add to Home Screen <i class="fa fa-plus-square-o" aria-hidden="true"></i>`,
+  logoImage: `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve">
+    <image id="image0" width="32" height="32" x="0" y="0"
+      xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABwlBMVEUAAABoKYRoKYRoKYRo
+KYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRo
+KYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRoKYRmJ4NlJYJmJoNnKINmJoJnJ4NrLYaCTpmh
+erK3mcTApsy/pMuzk8Gdc69/SpdqLIaHVp7IstPy7PT+/v7////9/f7w6fLFrdB4QJFpKoSgeLHv
+6PLw6vOAS5eacK318Pf9/P7l2+rDqs6yksC0lcLGrtHj1+j8+/3Uw9xtMIh7RJTl2ur39Pm0lMJ3
+PpB0Oo6YbKuvjr79/P2wkL9nKIRoKIRwNIrbzOLf0uVzOY3x6vNsL4d5QZKMW6H59vqherOGVJ3m
+2+rs5O/r4+/p3+2OXqOPYaT6+Pv//v+edrCLWqD49fr8+vyTZqeKWZ+ujL2FU5zh1ed7RZTt5fDU
+wdxrLYeMXKHz7/bRvdn59/qhebKAS5jy7fWccq76+fvx7PSog7hkJIFuMYnHr9Hh1ObBp8yxkL+w
+j77ErM/LtdVwNIvi1ud0O46SZKa5nMangrd1PI9pKoVmJYIBdN/qXMTWAAAAIXRSTlMAAAQoa6zZ
+8v0DNpbf+xqJ6YgZNcL+QdjBAineq/w36OoVlKlsAAAAAWJLR0SVCGB6gwAAAAd0SU1FB+QBDAkd
+FjLeh/4AAAH+SURBVDjLhZPpW1JBFMZnFLkIygU3vALqADO3MosWT6ktltrilhVFRZYaZZRr+25p
+m5Va1h/cwJ0FeHwe3k9zz/ndmTPvnIOQEK6qdtW4DY/HcNe4qqswKhWu9frq6olQfZ3PW1uMYOw3
+A6REgWADxjrf2NRMytTc1CgJjFvcZBe5WxyC/x8iuyrk7IH9rToWiycoZXHb+Wr1cwBbpk7v2buv
+a3/3gYPJQ7QQMC2MsFfVTw8fOdoDXMeO9/YViIAXI8sn8/0nToLUqdPOKT4LtYVF3h44A3B2cGj4
+3PkLF0dGnWC4DbmEf/bYOMDEpUnCGLk8cIUKT10oIje4CpC61l/YmbLr8twIEh6kb9wEuJXJ/0ht
+LuUFMsQGydsAXTG+muq7wyVqIAbyOAt2dxpgJk5IYvZe9n72wRxz4h4FPMzBo8ccYPML/JqLSwKI
+yiPY8gTACo8mnjzNpjRgyCLtZ88BXozy6l9mXr3WQEhdc+oNwNt3MX4N9v6DBiLKKLb6EeDTWoay
+9aQGuFHS6vTnL/nivn77vvEjpwButXose/JnSj2WBPhj4fYOSfxa28w5+enN2bxnpKOd94MVVP1g
+b22vdPcO/f4zt/O3EAlauLTlKGOUpGP/GNUtV7lpK7Z95cHJEw1mZ2m+0ywaPTG8YT284bLhLRr/
+aLRs/P8DbZGRYkxcNtEAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMDEtMTJUMDk6Mjk6MjIrMDM6
+MDA/mynTAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIwLTAxLTEyVDA5OjI5OjIyKzAzOjAwTsaRbwAA
+AABJRU5ErkJggg=="/>
+</svg>
+`
+});
+</script>
+</body>
+</html>
